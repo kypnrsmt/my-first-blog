@@ -1,36 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>djangoweb1</title>
-</head>
-<body>
 
-<p> merhaba</p>
-<P> site çalısıyor </P>
 
-<h1>DJANGOWEB1 SİTESİNE HOŞGELDİNİZ</h1>
-<h2>Django web sitesi alt başlık</h2>
+{% extends 'djangoweb1blog/base.html' %}
 
-<p>Bu web sitesinde django ile ilgili örnekler anlatılacaktır</p>
+{% block content %}
+    {% for post in posts %}
 
-<em>vurgulu metin</em>
-<br>
-<strong>daha vurgulu metin </strong>
-<br>
-
-<a href="https://djangogirls.org">web sitesi yönlendirme</a>
-
-<ul><li>ilk madde</li> <li>ikinci madde</li> <li> üçüncü madde</li></ul>
-<div> sayfanın bir bölümünü tanımlar</div>
-{{ posts }}
-
-{% for post in posts %}
-    <div>
-        <p>published: {{ post.published_date }}</p>
-        <h1><a href="">{{ post.title }}</a></h1>
-        <p>{{ post.text|linebreaksbr }}</p>
-    </div>
-{% endfor %}
-</body>
-</html>
+        <div class="post">
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+            <p>{{ post.text|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
